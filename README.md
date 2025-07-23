@@ -1,1 +1,1 @@
-# Malla-Interactiva-Medicina-UDP
+# Malla Interactiva Medicina UDP
