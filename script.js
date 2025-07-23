@@ -238,3 +238,6 @@ const ramos = [
   </script>
 </body>
 </html>
+
+// Llamada principal
+crearMalla();
