@@ -76,91 +76,29 @@ const malla = [
   { nombre: "Integrado médico quirúrgico 5.b", semestre: "14° semestre", requisitos: ["Integrado médico quirúrgico 4.b"], desbloquea: [] },
 ];
     
-    const semestres = {};
-    ramos.forEach(r => {
-      const semestre = r.semestre || "Internado";
-      if (!semestres[semestre]) semestres[semestre] = [];
-      semestres[semestre].push(r);
+   function crearMalla() {
+  const contenedor = document.getElementById("malla");
+  malla.forEach(semestre => {
+    const divSemestre = document.createElement("div");
+    divSemestre.className = "semestre";
+    const titulo = document.createElement("h2");
+    titulo.textContent = semestre.semestre;
+    divSemestre.appendChild(titulo);
+
+    const contenedorRamos = document.createElement("div");
+    contenedorRamos.className = "ramos-container";
+
+    semestre.ramos.forEach(ramo => {
+      const divRamo = document.createElement("div");
+      divRamo.className = "ramo";
+      divRamo.textContent = ramo.nombre;
+      divRamo.title = `Requiere: ${ramo.requisitos.join(", ")}\nHabilita: ${ramo.habilita.join(", ")}`;
+      contenedorRamos.appendChild(divRamo);
     });
 
-    const malla = document.getElementById('malla');
+    divSemestre.appendChild(contenedorRamos);
+    contenedor.appendChild(divSemestre);
+  });
+}
 
-    // Ordenar semestres
-    const ordenSemestres = Object.keys(semestres).sort((a, b) => {
-      const numA = parseInt(a);
-      const numB = parseInt(b);
-      return (isNaN(numA) ? 99 : numA) - (isNaN(numB) ? 99 : numB);
-    });
-
-    ordenSemestres.forEach(semestre => {
-      const contenedor = document.createElement('div');
-      contenedor.className = 'semestre';
-
-      const titulo = document.createElement('h2');
-      titulo.textContent = semestre;
-      contenedor.appendChild(titulo);
-
-      semestres[semestre].forEach(ramo => {
-        const div = document.createElement('div');
-        div.className = 'ramo';
-        div.textContent = ramo.nombre;
-        div.dataset.nombre = ramo.nombre;
-
-        if ((ramo.requisitos || []).length > 0) {
-          div.classList.add('bloqueado');
-        }
-
-        contenedor.appendChild(div);
-      });
-
-      malla.appendChild(contenedor);
-    });
-
-    // Agregar manejadores de clics DESPUÉS del render
-    document.querySelectorAll('.ramo').forEach(div => {
-      div.addEventListener('click', () => {
-        if (div.classList.contains('bloqueado')) return;
-
-        if (!div.classList.contains('aprobado')) {
-          div.classList.add('aprobado');
-
-          const nombre = div.dataset.nombre;
-          const desbloquea = ramos.find(r => r.nombre === nombre)?.desbloquea || [];
-
-          desbloquea.forEach(nombreAbierto => {
-            const desbloquear = document.querySelector(`.ramo[data-nombre="${nombreAbierto}"]`);
-            if (desbloquear && desbloquear.classList.contains('bloqueado')) {
-              const requisitos = ramos.find(r => r.nombre === nombreAbierto)?.requisitos || [];
-              const cumplidos = requisitos.every(req =>
-                document.querySelector(`.ramo[data-nombre="${req}"]`)?.classList.contains('aprobado')
-              );
-              if (cumplidos) {
-                desbloquear.classList.remove('bloqueado');
-              }
-            }
-          });
-        } else {
-          div.classList.remove('aprobado');
-        }
-      });
-    });
-
-    // Desbloqueo inicial
-    ramos.forEach(ramoObj => {
-      const divTarget = document.querySelector(`.ramo[data-nombre="${ramoObj.nombre}"]`);
-      if (divTarget && divTarget.classList.contains('bloqueado')) {
-        const requisitos = ramoObj.requisitos || [];
-        const cumplidos = requisitos.every(req =>
-          document.querySelector(`.ramo[data-nombre="${req}"]`)?.classList.contains('aprobado')
-        );
-        if (cumplidos) {
-          divTarget.classList.remove('bloqueado');
-        }
-      }
-    });
-  </script>
-</body>
-</html>
-
-// Llamada principal
-crearMalla();
+document.addEventListener("DOMContentLoaded", crearMalla);
