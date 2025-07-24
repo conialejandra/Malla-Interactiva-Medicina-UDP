@@ -1,105 +1,45 @@
 // script.js
 
-const malla = {
-  "PRIMER AÑO": [
-  { nombre: "Vivencias de la medicina 1", semestre: "1° semestre", requisitos: [], desbloquea: ["Vivencias de la medicina 2", "Psicología médica"] },
-  { nombre: "Bases científicas de la medicina", semestre: "1° semestre", requisitos: [], desbloquea: ["Bases estructurales y funcionales 1", "Bioestadística"] },
-  { nombre: "Mecanismos celulares en salud y enfermedad", semestre: "1° semestre", requisitos: [], desbloquea: ["Bases estructurales y funcionales 1"] },
-  { nombre: "Pensamiento critico", semestre: "1° semestre", requisitos: [], desbloquea: [] },
-  { nombre: "Técnicas avanzadas de aprendizaje", semestre: "1° semestre", requisitos: [], desbloquea: [] },
-  { nombre: "Inglés general 1", semestre: "1° semestre", requisitos: [], desbloquea: ["Inglés general 2"] },
-  { nombre: "Vivencias de la medicina 2", semestre: "2° semestre", requisitos: ["Vivencias de la medicina 1"], desbloquea: [] },
-  { nombre: "Psicología médica", semestre: "2° semestre", requisitos: ["Vivencias de la medicina 1"], desbloquea: ["Introducción a la práctica clínica", "Bioética"] },
-  { nombre: "Bases estructurales y funcionales 1", semestre: "2° semestre", requisitos: ["Bases científicas de la medicina", "Mecanismos celulares en salud y enfermedad"], desbloquea: ["Bases estructurales y funcionales 2", "Bases estructurales y funcionales 3"] },
-  { nombre: "Inglés general 2", semestre: "2° semestre", requisitos: ["Inglés general 1"], desbloquea: ["Inglés general 3"] },
-  { nombre: "Curso de formación general 1", semestre: "2° semestre", requisitos: [], desbloquea: [] },
-  { nombre: "Curso de formación general 2", semestre: "2° semestre", requisitos: [], desbloquea: [] },
-],
-  "SEGUNDO AÑO": [
-  { nombre: "Introducción a la práctica clínica", semestre: "3° semestre", requisitos: ["Psicología médica"], desbloquea: ["Introducción al razonamiento clínico", "Bases estructurales y funcionales 3", "Semiología"] },
-  { nombre: "Bases estructurales y funcionales 2", semestre: "3° semestre", requisitos: ["Bases estructurales y funcionales 1"], desbloquea: ["Morfofisiopatología 1"] },
-  { nombre: "Bioestadística", semestre: "3° semestre", requisitos: ["Bases científicas de la medicina"], desbloquea: ["Epidemiologia"] },
-  { nombre: "Bioética", semestre: "3° semestre", requisitos: ["Psicología médica"], desbloquea: ["Semiología", "Metodología de la investigación clínica 1", "Salud pública", "Salud sexual"] },
-  { nombre: "Inglés general 3", semestre: "3° semestre", requisitos: ["Inglés general 2"], desbloquea: [] },
-  { nombre: "Curso de formación general 3", semestre: "3° semestre", requisitos: [], desbloquea: [] },
-  { nombre: "Epidemiologia", semestre: "4° semestre", requisitos: ["Bioestadística"], desbloquea: ["Metodología de la investigación clínica 1", "Salud pública", "Administración y gestión en salud 1"] },
-  { nombre: "Morfofisiopatología 1", semestre: "4° semestre", requisitos: ["Bases estructurales y funcionales 2"], desbloquea: ["Morfofisiopatología 2", "Electivo 2"] },
-  { nombre: "Introducción al razonamiento clínico", semestre: "4° semestre", requisitos: ["Introducción a la práctica clínica"], desbloquea: ["Integrado médico quirúrgico 1", "Electivo 1", "Electivo 2"] },
-  { nombre: "Bases estructurales y funcionales 3", semestre: "4° semestre", requisitos: ["Bases estructurales y funcionales 1", "Introducción a la práctica clínica"], desbloquea: ["Semiología", "Electivo 1", "Electivo 2"] },
-  { nombre: "Curso de formación general 4", semestre: "4° semestre", requisitos: [], desbloquea: [] },
-  { nombre: "Curso de formación general 5", semestre: "4° semestre", requisitos: [], desbloquea: [] },
-],
-  "TERCER AÑO": [
-  { nombre: "Semiología", semestre: "5° semestre", requisitos: ["Introducción a la práctica clínica", "Bases estructurales y funcionales 3", "Bioética"], desbloquea: ["Microbiología clínica", "Salud digital", "Integrado médico quirúrgico 1", "Morfofisiopatología 3"] },
-  { nombre: "Morfofisiopatología 2", semestre: "5° semestre", requisitos: ["Morfofisiopatología 1"], desbloquea: ["Microbiología clínica", "Integrado médico quirúrgico 1", "Morfofisiopatología 3"] },
-  { nombre: "Metodología de la investigación clínica 1", semestre: "5° semestre", requisitos: ["Bioética", "Epidemiologia"], desbloquea: ["Electivo 1", "Metodología de la investigación clínica 2", "Electivo 2"] },
-  { nombre: "Salud pública", semestre: "5° semestre", requisitos: ["Bioética", "Epidemiologia"], desbloquea: ["Salud digital", "Administración y gestión en salud 1"] },
-  { nombre: "Microbiología clínica", semestre: "6° semestre", requisitos: ["Semiología", "Morfofisiopatología 2"], desbloquea: ["Integrado médico quirúrgico 2"] },
-  { nombre: "Salud digital", semestre: "6° semestre", requisitos: ["Semiología", "Salud pública"], desbloquea: [] },
-  { nombre: "Integrado médico quirúrgico 1", semestre: "6° semestre", requisitos: ["Introducción al razonamiento clínico", "Morfofisiopatología 2", "Semiología"], desbloquea: ["Integrado médico quirúrgico 2", "Morfofisiopatología 3"] },
-  { nombre: "Curso de formación general 6", semestre: "6° semestre", requisitos: [], desbloquea: [] },
-],
-  "CUARTO AÑO": [
-  { nombre: "Integrado médico quirúrgico 2", semestre: "7° semestre", requisitos: ["Integrado médico quirúrgico 1", "Microbiología clínica"], desbloquea: ["Integrado médico quirúrgico 3", "Salud sexual", "Medicina legal", "Administración y gestión en salud 1"] },
-  { nombre: "Electivo 1", semestre: "7° semestre", requisitos: ["Introducción al razonamiento clínico", "Bases estructurales y funcionales 3", "Metodología de la investigación clínica 1"], desbloquea: [] },
-  { nombre: "Metodología de la investigación clínica 2", semestre: "7° semestre", requisitos: ["Metodología de la investigación clínica 1"], desbloquea: [] },
-  { nombre: "Morfofisiopatología 3", semestre: "7° semestre", requisitos: ["Integrado médico quirúrgico 1", "Morfofisiopatología 2", "Semiología"], desbloquea: ["Integrado médico quirúrgico 3"] },
-  { nombre: "Integrado médico quirúrgico 3", semestre: "8° semestre", requisitos: ["Integrado médico quirúrgico 2", "Morfofisiopatología 3"], desbloquea: ["Salud mental y psiquiatría 1", "Órganos de los sentidos 1", "Pediatría", "Órganos de los sentidos 2", "Ginecología y obstetricia"] },
-  { nombre: "Salud sexual", semestre: "8° semestre", requisitos: ["Bioética", "Integrado médico quirúrgico 2"], desbloquea: [] },
-  { nombre: "Electivo 2", semestre: "8° semestre", requisitos: ["Morfofisiopatología 1", "Introducción al razonamiento clínico", "Bases estructurales y funcionales 3", "Metodología de la investigación clínica 1"], desbloquea: [] },
-  { nombre: "Medicina legal", semestre: "8° semestre", requisitos: ["Integrado médico quirúrgico 2"], desbloquea: [] },
-],
-  "QUINTO AÑO": [
-  { nombre: "Salud mental y psiquiatría 1", semestre: "9° semestre", requisitos: ["Integrado médico quirúrgico 3"], desbloquea: ["Salud mental y psiquiatría 2"] },
-  { nombre: "Órganos de los sentidos 1", semestre: "9° semestre", requisitos: ["Integrado médico quirúrgico 3"], desbloquea: [] },
-  { nombre: "Administración y gestión en salud 1", semestre: "9° semestre", requisitos: ["Epidemiologia", "Salud pública", "Integrado médico quirúrgico 2"], desbloquea: ["Administración y gestión en salud 2"] },
-  { nombre: "Pediatría", semestre: "9° semestre", requisitos: ["Integrado médico quirúrgico 3"], desbloquea: [] },
-  { nombre: "Salud mental y psiquiatría 2", semestre: "10° semestre", requisitos: ["Salud mental y psiquiatría 1"], desbloquea: [] },
-  { nombre: "Órganos de los sentidos 2", semestre: "10° semestre", requisitos: ["Integrado médico quirúrgico 3"], desbloquea: [] },
-  { nombre: "Administración y gestión en salud 2", semestre: "10° semestre", requisitos: ["Administración y gestión en salud 1"], desbloquea: [] },
-  { nombre: "Ginecología y obstetricia", semestre: "10° semestre", requisitos: ["Integrado médico quirúrgico 3"], desbloquea: [] },
-],
-  "SEXTO AÑO": [
-  { nombre: "Internado de psiquiatria", semestre: "11° semestre", requisitos: ["Ginecología y obstetricia"], desbloquea: ["Internado de pediatría"] },
-  { nombre: "Internado electivo", semestre: "11° semestre", requisitos: ["Ginecología y obstetricia"], desbloquea: ["Internado de pediatría"] },
-  { nombre: "Internado de urgencias", semestre: "11° semestre", requisitos: ["Ginecología y obstetricia"], desbloquea: ["Internado de pediatría"] },
-  { nombre: "Integrado médico quirúrgico 4.a", semestre: "11° semestre", requisitos: ["Ginecología y obstetricia"], desbloquea: ["Integrado médico quirúrgico 5.a"] },
-  { nombre: "Internado de medicina interna y geriatría", semestre: "12° semestre", requisitos: ["Ginecología y obstetricia"], desbloquea: ["Internado de pediatría"] },
-  { nombre: "Internado especialidades", semestre: "12° semestre", requisitos: ["Ginecología y obstetricia"], desbloquea: ["Internado de pediatría"] },
-  { nombre: "Integrado médico quirúrgico 4.b", semestre: "12° semestre", requisitos: ["Ginecología y obstetricia"], desbloquea: ["Integrado médico quirúrgico 5.b"] },
-],
-  "SEPTIMO AÑO": [
-  { nombre: "Internado de pediatría", semestre: "13° semestre", requisitos: ["Internado de psiquiatria", "Internado electivo", "Internado de urgencias", "Internado de medicina interna y geriatría", "Internado especialidades"], desbloquea: [] },
-  { nombre: "Internado de salud comunitaria", semestre: "13° semestre", requisitos: ["Internado de psiquiatria"], desbloquea: [] },
-  { nombre: "Integrado médico quirúrgico 5.a", semestre: "13° semestre", requisitos: ["Integrado médico quirúrgico 4.a"], desbloquea: [] },
-  { nombre: "Internado de ginecología y obstetricia", semestre: "14° semestre", requisitos: ["Internado de psiquiatria"], desbloquea: [] },
-  { nombre: "Integrado de cirugía", semestre: "14° semestre", requisitos: ["Internado de psiquiatria"], desbloquea: [] },
-  { nombre: "Integrado médico quirúrgico 5.b", semestre: "14° semestre", requisitos: ["Integrado médico quirúrgico 4.b"], desbloquea: [] },
-];
-    
-   function crearMalla() {
-  const contenedor = document.getElementById("malla");
-  malla.forEach(semestre => {
+document.addEventListener("DOMContentLoaded", () => {
+  const malla = document.getElementById("malla");
+
+  const semestres = [
+    {
+      nombre: "Primer Semestre",
+      ramos: ["Biología Celular", "Química General", "Anatomía I", "Salud Pública I"]
+    },
+    {
+      nombre: "Segundo Semestre",
+      ramos: ["Fisiología I", "Química Orgánica", "Anatomía II", "Salud Pública II"]
+    }
+    // Puedes agregar más semestres aquí
+  ];
+
+  semestres.forEach((semestre) => {
     const divSemestre = document.createElement("div");
-    divSemestre.className = "semestre";
+    divSemestre.classList.add("semestre");
+
     const titulo = document.createElement("h2");
-    titulo.textContent = semestre.semestre;
+    titulo.textContent = semestre.nombre;
     divSemestre.appendChild(titulo);
 
-    const contenedorRamos = document.createElement("div");
-    contenedorRamos.className = "ramos-container";
+    const container = document.createElement("div");
+    container.classList.add("ramos-container");
 
-    semestre.ramos.forEach(ramo => {
+    semestre.ramos.forEach((ramo) => {
       const divRamo = document.createElement("div");
-      divRamo.className = "ramo";
-      divRamo.textContent = ramo.nombre;
-      divRamo.title = `Requiere: ${ramo.requisitos.join(", ")}\nHabilita: ${ramo.habilita.join(", ")}`;
-      contenedorRamos.appendChild(divRamo);
+      divRamo.classList.add("ramo");
+      divRamo.textContent = ramo;
+
+      // Eventos para marcar como aprobado
+      divRamo.addEventListener("click", () => {
+        divRamo.classList.toggle("aprobado");
+      });
+
+      container.appendChild(divRamo);
     });
 
-    divSemestre.appendChild(contenedorRamos);
-    contenedor.appendChild(divSemestre);
+    divSemestre.appendChild(container);
+    malla.appendChild(divSemestre);
   });
-}
-
-document.addEventListener("DOMContentLoaded", crearMalla);
+});
