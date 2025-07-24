@@ -1,6 +1,6 @@
-<script>
-    // Lista completa de ramos con relaciones
-const ramos = [
+// script.js
+
+const malla = [
   // PRIMER AÑO
   { nombre: "Vivencias de la medicina 1", semestre: "1° semestre", requisitos: [], desbloquea: ["Vivencias de la medicina 2", "Psicología médica"] },
   { nombre: "Bases científicas de la medicina", semestre: "1° semestre", requisitos: [], desbloquea: ["Bases estructurales y funcionales 1", "Bioestadística"] },
