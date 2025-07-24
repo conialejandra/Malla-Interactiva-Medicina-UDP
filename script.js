@@ -1,3 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Medicina UDP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Malla Medicina UDP</h1>
+  <div id="malla" class="grid-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
 // script.js
 
 document.addEventListener("DOMContentLoaded", () => {
